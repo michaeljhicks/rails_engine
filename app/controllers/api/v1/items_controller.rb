@@ -15,6 +15,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: ItemSerializer.new(Item.update(item_params))
   end
 
+  def destroy #when destroying an item, there is no JSON body, and it doesn't utilize a serializer
+    Item.destroy(params[:id])
+  end
+
   private
     def item_params
       params.permit(:name, :description, :unit_price, :merchant_id)
