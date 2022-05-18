@@ -1,4 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
+
   def index
     render json: ItemSerializer.new(Item.all)
   end
@@ -16,7 +17,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy #when destroying an item, there is no JSON body, and it doesn't utilize a serializer
-    Item.destroy(params[:id])
+    Item.destroy(params[:id]) #render status 201
   end
 
   private

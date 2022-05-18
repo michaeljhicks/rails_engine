@@ -98,7 +98,7 @@ require 'rails_helper'
      item_attributes_price = { unit_price: 20.99 }
      headers = {'CONTENT_TYPE' => 'application/json'}
 
-     put "/api/v1/items/#{id}", headers: headers, params: JSON.generate(item_attributes_price)
+     patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate(item_attributes_price)
      item = Item.find_by(id: id)
      expect(response).to be_successful
      expect(item.unit_price).to_not eq(current_price)
