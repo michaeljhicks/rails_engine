@@ -36,4 +36,38 @@ require 'rails_helper'
        expect(item_attributes[:merchant_id]).to be_an(Integer)
      end
    end
+
+   it 'gets one item by its id' do
+     item = create(:item)
+
+     get "/api/v1/items/#{item.id}"
+
+     json = JSON.parse(response.body, symbolize_names: true)
+     item = json[:data]
+
+     expect(response).to be_successful
+
+     expect(item).to have_key(:id)
+     expect(item[:id]).to be_a(String)
+
+     expect(item).to have_key(:type)
+     expect(item[:type]).to be_a(String)
+
+     expect(item).to have_key(:attributes)
+     expect(item[:attributes]).to be_a(Hash)
+
+     single_item_attributes = item[:attributes]
+
+     expect(single_item_attributes).to have_key(:name)
+     expect(single_item_attributes[:name]).to be_a(String)
+
+     expect(single_item_attributes).to have_key(:description)
+     expect(single_item_attributes[:description]).to be_a(String)
+
+     expect(single_item_attributes).to have_key(:unit_price)
+     expect(single_item_attributes[:unit_price]).to be_a(Float)
+
+     expect(single_item_attributes).to have_key(:merchant_id)
+     expect(single_item_attributes[:merchant_id]).to be_an(Integer)
+   end
  end
