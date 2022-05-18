@@ -104,4 +104,14 @@ require 'rails_helper'
      expect(item.unit_price).to_not eq(current_price)
      expect(item.unit_price).to eq(20.99)
    end
+
+   it 'can destroy an item' do
+     item = create(:item)
+
+     expect(Item.count).to eq(1)
+
+     delete "/api/v1/items/#{item.id}"
+     expect(Item.count).to eq(0)
+     expect(response.status).to eq(204)
+   end
  end
